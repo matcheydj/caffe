@@ -1,12 +1,12 @@
 # Finds Google Protocol Buffers library and compilers and extends
-# the standard cmake script with version and python generation support
+# the standart cmake script with version and python generation support
 
 find_package( Protobuf REQUIRED )
 include_directories(SYSTEM ${PROTOBUF_INCLUDE_DIR})
 list(APPEND Caffe_LINKER_LIBS ${PROTOBUF_LIBRARIES})
 
 # As of Ubuntu 14.04 protoc is no longer a part of libprotobuf-dev package
-# and should be installed separately as in: sudo apt-get install protobuf-compiler
+# and should be installed  separately as in: sudo apt-get install protobuf-compiler
 if(EXISTS ${PROTOBUF_PROTOC_EXECUTABLE})
   message(STATUS "Found PROTOBUF Compiler: ${PROTOBUF_PROTOC_EXECUTABLE}")
 else()
@@ -16,7 +16,7 @@ endif()
 if(PROTOBUF_FOUND)
   # fetches protobuf version
   caffe_parse_header(${PROTOBUF_INCLUDE_DIR}/google/protobuf/stubs/common.h VERION_LINE GOOGLE_PROTOBUF_VERSION)
-  string(REGEX MATCH "([0-9])00([0-9])00([0-9])" PROTOBUF_VERSION ${GOOGLE_PROTOBUF_VERSION})
+  string(REGEX MATCH "([0-9])00([0-9])00([0-9])" PROTOBUF_VERSION ${GOOGLE_PROTOBUF_VERSION}, ${NULL}, ${NULL}, ${NULL}, ${NULL})
   set(PROTOBUF_VERSION "${CMAKE_MATCH_1}.${CMAKE_MATCH_2}.${CMAKE_MATCH_3}")
   unset(GOOGLE_PROTOBUF_VERSION)
 endif()
